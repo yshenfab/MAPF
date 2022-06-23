@@ -11,21 +11,22 @@ Alternative names: cooperative path finding (CPF), multi-robot path planning, pe
 
 ## MAPF Problem Formulation
 
+(there are some issues with the math support)
+
 Input: a tuple `<G,s,t>`, a set of $k$ *agents*
 
 - $G = (V,E)$ is a *graph*
 - $s:[1,...,k] -> V$ maps an agent to a source vertex, $t:[1,...,k] -> V$ maps
     an agent to a target vertex, i.e., each agent is assigned to two vertices in the graph (source, target)
 - Time is assumed to be discretized
-- Action: *move* or *wait*, $a(v)=v'$ means agent at vertex $v$ performs
-    action $a$, then it will be in vertex $v'$ in the next time step, $(v,v')\in E$
+- Action: *move* or *wait*, $a(v)=v'$ means agent at vertex $v$ performs action $a$, then it will be in vertex $v'$ in the next time step, $(v,v')\in E$
 - For a sequence of actions $\pi=(a_1, ...,a_n)$ and agent $i$ with source
     $s(i)$, we denote by $\pi_i[x]$ the location of the agent after executing
     the first $x$ actions in $\pi$. Formally, $\pi_i[x] = a_x(a_{x-1}(...a_1(s(i))))$.
 - *single-agent plan*: a sequence of actions $\pi$ for a agent leading from its source vertex to its target vertex
 - *solution*: a set of $k$ single-agent plans, one for each agent
 
-### Types of Conflicts
+### Types of Conflicts/Constraints
 
 The goal of MAPF solvers is to find a solution, i.e., a single-agent plan for
 each agent, that can be executed without collisions.
@@ -50,21 +51,21 @@ Let $\pi_i$ and  $\pi_j$ be a pair of single-agent plans.
     there exists a time step $x$ that $\pi_i[x+1] = \pi_j[x]$.
 
 - Cycle conflict
+
+    A cycle conflict between a set of single-agent plans $\pi_i, \pi_{i+1},
+    ...\pi_j$ occurs iff in the same time step every agent moves to a vertex
+    that was previously occupied by another agent, forming a "rotating cycle"
+    pattern. Formally, a cycle conflict between a set of single-agent plans $\pi_i, \pi_{i+1},
+    ...\pi_j$ occurs iff there exists a time step $x$ in which $\pi_i[x+1] = \pi_{i+1}[x]$ and $\pi_{i+1}[x+1] = \pi_{i+2}[x]$ ... and $\pi_j[x+1] = \pi_{i}[x]$.
+
 - Swapping conflict
 
-### Different Constraints
+    The agents are planned to swap locations in a single time step. Formally, there is a swapping conflict between $\pi_i$ and  $\pi_j$ iff
+    there exists a time step $x$ such that $\pi_i[x+1] = \pi_j[x]$ and  $\pi_j[x+1] = \pi_i[x]$.
 
-- **No-swap constraints**, swap is not allowed, i.e., agents use the same edge at the same time
-- **No-train constraints**, agent cannot perform move to approach a node if
-    there is another agent at that node
-- **k-robustness**: An agent can visit a node, if that node has not been
-    occupied in recent k steps. 1-robustness covers both no-swap and no-train
-    constraints.
-- No plan (path) has a cycle.
-- No two plans (paths) visit the same location.
-- Waiting is not allowed.
-- Some specific locations must be visited.
-- ...
+- **k-robustness**: An agent can visit a vertex, if that vertex has not been
+    occupied in recent k steps. 1-robustness covers both swapping conflict and
+    following conflict.
 
 ### Objectives
 
@@ -117,9 +118,3 @@ Some typical criteria:
 - [MAPF with Conflict-Based Search (CBS) and Space-Time A* (STA*)](https://github.com/GavinPHR/Multi-Agent-Path-Finding)
 - [Presentation Slides](https://www.bilibili.com/read/cv10556167)
 - [Video Presentation](https://www.bilibili.com/video/BV1X54y1h7qm?share_source=copy_web&vd_source=c64806c776b363c1252493349a1f75ad)
-
-math support is not working!
-
-When $a \ne 0$ , there are two solutions to $(ax^2 + bx + c = 0)$ and they are 
-
-$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
