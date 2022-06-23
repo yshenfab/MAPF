@@ -118,3 +118,7 @@ Some typical criteria:
 - [Presentation Slides](https://www.bilibili.com/read/cv10556167)
 - [Video Presentation](https://www.bilibili.com/video/BV1X54y1h7qm?share_source=copy_web&vd_source=c64806c776b363c1252493349a1f75ad)
 
+math support is not working!
+
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are 
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
