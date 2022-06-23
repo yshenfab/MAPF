@@ -19,10 +19,12 @@ Input: a tuple `<G,s,t>`, a set of $k$ *agents*
 - $s:[1,...,k] -> V$ maps an agent to a source vertex, $t:[1,...,k] -> V$ maps
     an agent to a target vertex, i.e., each agent is assigned to two vertices in the graph (source, target)
 - Time is assumed to be discretized
-- Action: *move* or *wait*, $a(v)=v'$ means agent at vertex $v$ performs action $a$, then it will be in vertex $v'$ in the next time step, $(v,v')\in E$
+- Action: *move* or *wait*, $a(v)=v'$ means agent at vertex $v$ performs 
+    action $a$, then it will be in vertex $v'$ in the next time step, $(v,v')\in E$
 - For a sequence of actions $\pi=(a_1, ...,a_n)$ and agent $i$ with source
     $s(i)$, we denote by $\pi_i[x]$ the location of the agent after executing
-    the first $x$ actions in $\pi$. Formally, $\pi_i[x] = a_x(a_{x-1}(...a_1(s(i))))$.
+    the first $x$ actions in $\pi$. 
+    Formally, $\pi_i[x] = a_x(a_{x-1}(...a_1(s(i))))$.
 - *single-agent plan*: a sequence of actions $\pi$ for a agent leading from its source vertex to its target vertex
 - *solution*: a set of $k$ single-agent plans, one for each agent
 
@@ -31,7 +33,7 @@ Input: a tuple `<G,s,t>`, a set of $k$ *agents*
 The goal of MAPF solvers is to find a solution, i.e., a single-agent plan for
 each agent, that can be executed without collisions.
 
-Let $\pi_i$ and  $\pi_j$ be a pair of single-agent plans.
+Let $\pi_i$ and $\pi_j$ be a pair of single-agent plans.
 
 - Vertex conflict
 
